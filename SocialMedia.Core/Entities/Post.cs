@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SocialMedia.Core.Entities
+namespace SocialMedia.Model.Entities
 {
     public class Post
     {

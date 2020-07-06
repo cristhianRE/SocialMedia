@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SocialMedia.Core.Entities;
 using SocialMedia.Model.DTOs;
+using SocialMedia.Model.Entities;
 
 namespace SocialMedia.Infrastructure.Mappings
 {

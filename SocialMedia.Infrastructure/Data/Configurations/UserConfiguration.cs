@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SocialMedia.Core.Entities;
+using SocialMedia.Model.Entities;
 
 namespace SocialMedia.Infrastructure.Data.Configurations
 {
@@ -22,7 +22,7 @@ namespace SocialMedia.Infrastructure.Data.Configurations
                 .IsUnicode(false);
 
             builder.Property(e => e.LastName)
-                .HasColumnName("Apelidos")
+                .HasColumnName("Apellidos")
                 .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -34,7 +34,7 @@ namespace SocialMedia.Infrastructure.Data.Configurations
                 .IsUnicode(false);
 
             builder.Property(e => e.BirthDate)
-                .HasColumnName("FechaNascimento")
+                .HasColumnName("FechaNacimiento")
                 .HasColumnType("date");
 
             builder.Property(e => e.Telephone)
