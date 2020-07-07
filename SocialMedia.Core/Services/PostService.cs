@@ -8,18 +8,16 @@ namespace SocialMedia.Model.Services
 {
     public class PostService : IPostService
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnityOfWork _unitOfWork;
 
-        public PostService(IPostRepository postRepository, IUserRepository userRepository)
+        public PostService(IUnityOfWork unitOfWork)
         {
-            _postRepository = postRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task InsertPost(Post post)
         {
-            var user = await _userRepository.GetUser(post.UserId);
+            var user = await _unitOfWork.UserRepository.GetById(post.UserId);
             if (user == null)
             {
                 throw new Exception("User does't exist.");
@@ -30,27 +28,29 @@ namespace SocialMedia.Model.Services
                 throw new Exception("Content not allowed.");
             }
 
-            await _postRepository.InsertPost(post);
+            await _unitOfWork.PostRepository.Insert(post);
         }
 
         public async Task<bool> UpdatePost(Post post)
         {
-            return await _postRepository.UpdatePost(post);
+            await _unitOfWork.PostRepository.Update(post);
+            return true;
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            return await _postRepository.GetPosts();
+            return await _unitOfWork.PostRepository.GetAll();
         }
 
         public async Task<Post> GetPost(int id)
         {
-            return await _postRepository.GetPost(id);
+            return await _unitOfWork.PostRepository.GetById(id);
         }
 
         public async Task<bool> DeletePost(int id)
         {
-            return await _postRepository.DeletePost(id);
+            await _unitOfWork.PostRepository.Delete(id);
+            return true;
         }
     }
 }

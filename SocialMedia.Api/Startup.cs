@@ -43,8 +43,8 @@ namespace SocialMedia.Api
             {
                 options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
             });
-            services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IUnityOfWork, UnityOfWork>();
             services.AddTransient<IPostService, PostService>();
         }
 
