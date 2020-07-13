@@ -4,7 +4,10 @@ using SocialMedia.Api.Response;
 using SocialMedia.Model.DTOs;
 using SocialMedia.Model.Entities;
 using SocialMedia.Model.Interfaces;
+using SocialMedia.Model.ModelFilters;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SocialMedia.Api.Controllers
@@ -12,7 +15,7 @@ namespace SocialMedia.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
-    {
+    { 
         private readonly IPostService _service;
         private readonly IMapper _mapper;
 
@@ -23,16 +26,17 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPosts()
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<PostDto>>))]
+        public IActionResult GetPosts([FromQuery]PostQueryFilter filter)
         {
-            var posts = _service.GetPosts();
+            var posts = _service.GetPosts(filter);
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDto);
             return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPost(int id)
+        public async Task<IActionResult> GetPost([FromQuery]int id)
         {
             var post = await _service.GetPost(id);
             var postDto = _mapper.Map<PostDto>(post);
@@ -41,7 +45,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(PostDto postDto)
+        public async Task<IActionResult> Post([FromBody]PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
             await _service.InsertPost(post);
@@ -51,7 +55,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(int id, PostDto postDto)
+        public async Task<IActionResult> Put([FromQuery]int id, [FromBody]PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
             post.Id = id;
@@ -61,7 +65,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromQuery]int id)
         {
             var result = await _service.DeletePost(id);
             var response = new ApiResponse<bool>(result);

@@ -1,4 +1,5 @@
 ﻿using SocialMedia.Model.Entities;
+using SocialMedia.Model.ModelFilters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace SocialMedia.Model.Interfaces
 {
     public interface IPostService
     {
-        IEnumerable<Post> GetPosts();
+        IEnumerable<Post> GetPosts(PostQueryFilter filter);
         Task<Post> GetPost(int id);
         Task InsertPost(Post post);
         Task<bool> UpdatePost(Post post);

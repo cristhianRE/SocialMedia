@@ -9,9 +9,9 @@ namespace SocialMedia.Infrastructure.FIlters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception.GetType() == typeof(BusinessException))
+            if (context.Exception.GetType() == typeof(DomainException))
             {
-                var exception = (BusinessException)context.Exception;
+                var exception = (DomainException)context.Exception;
                 var validation = new
                 {
                     Status = 400,
