@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SocialMedia.Model.DTOs
+namespace SocialMedia.Domain.DTOs
 {
     public class PostDto
     {

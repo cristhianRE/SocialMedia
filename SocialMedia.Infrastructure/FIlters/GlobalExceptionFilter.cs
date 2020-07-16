@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SocialMedia.Model.Exceptions;
+using SocialMedia.Domain.Exceptions;
 using System.Net;
 
 namespace SocialMedia.Infrastructure.FIlters

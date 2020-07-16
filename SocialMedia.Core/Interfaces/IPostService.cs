@@ -1,9 +1,9 @@
-﻿using SocialMedia.Model.CustomEnities;
-using SocialMedia.Model.Entities;
-using SocialMedia.Model.ModelFilters;
+﻿using SocialMedia.Domain.CustomEnities;
+using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.ModelFilters;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Model.Interfaces
+namespace SocialMedia.Domain.Interfaces
 {
     public interface IPostService
     {

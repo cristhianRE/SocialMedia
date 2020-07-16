@@ -1,21 +1,24 @@
-﻿using SocialMedia.Model.CustomEnities;
-using SocialMedia.Model.Entities;
-using SocialMedia.Model.Exceptions;
-using SocialMedia.Model.Interfaces;
-using SocialMedia.Model.ModelFilters;
+﻿using Microsoft.Extensions.Options;
+using SocialMedia.Domain.CustomEnities;
+using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Exceptions;
+using SocialMedia.Domain.Interfaces;
+using SocialMedia.Domain.ModelFilters;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Model.Services
+namespace SocialMedia.Domain.Services
 {
     public class PostService : IPostService
     {
         private readonly IUnityOfWork _unitOfWork;
+        private readonly PaginationOptions _paginationOptions;
 
-        public PostService(IUnityOfWork unitOfWork)
+        public PostService(IUnityOfWork unitOfWork, IOptions<PaginationOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _paginationOptions = options.Value;
         }
 
         public async Task InsertPost(Post post)
@@ -54,6 +57,9 @@ namespace SocialMedia.Model.Services
 
         public PagedList<Post> GetPosts(PostQueryFilter filter)
         {
+            filter.PageNumber = filter.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filter.PageNumber;
+            filter.PageSize = filter.PageSize == 0 ? _paginationOptions.DefaultPageSize : filter.PageSize;
+
             var posts = _unitOfWork.PostRepository.GetAll();
 
             if (filter.UserId != null)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SocialMedia.Model.Entities
+namespace SocialMedia.Domain.Entities
 {
     public partial class Comment : BaseEntity
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SocialMedia.Model.Exceptions
+namespace SocialMedia.Domain.Exceptions
 {
     public class DomainException : Exception
     {

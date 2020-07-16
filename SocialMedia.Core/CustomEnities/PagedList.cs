@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SocialMedia.Model.CustomEnities
+namespace SocialMedia.Domain.CustomEnities
 {
     public class PagedList<T> : List<T>
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Interfaces;
 using SocialMedia.Infrastructure.Data;
-using SocialMedia.Model.Entities;
-using SocialMedia.Model.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

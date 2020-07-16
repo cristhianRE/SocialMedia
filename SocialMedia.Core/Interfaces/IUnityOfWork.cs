@@ -1,8 +1,8 @@
-﻿using SocialMedia.Model.Entities;
+﻿using SocialMedia.Domain.Entities;
 using System;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Model.Interfaces
+namespace SocialMedia.Domain.Interfaces
 {
     public interface IUnityOfWork : IDisposable
     {

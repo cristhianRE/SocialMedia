@@ -1,6 +1,6 @@
-﻿using SocialMedia.Infrastructure.Data;
-using SocialMedia.Model.Entities;
-using SocialMedia.Model.Interfaces;
+﻿using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Interfaces;
+using SocialMedia.Infrastructure.Data;
 using System.Threading.Tasks;
 
 namespace SocialMedia.Infrastructure.Repositories

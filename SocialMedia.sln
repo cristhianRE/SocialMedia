@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMedia.Api", "SocialMedia.Api\SocialMedia.Api.csproj", "{100D3B26-3F91-4434-9F63-1D9B3EF4C344}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMedia.Model", "SocialMedia.Core\SocialMedia.Model.csproj", "{B35CFB68-14C3-4028-89CD-9DB6AD9ACE8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMedia.Domain", "SocialMedia.Core\SocialMedia.Domain.csproj", "{B35CFB68-14C3-4028-89CD-9DB6AD9ACE8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialMedia.Infrastructure", "SocialMedia.Infrastructure\SocialMedia.Infrastructure.csproj", "{57CF881A-B9BF-4509-A2E8-AAE2321C10F5}"
 EndProject
