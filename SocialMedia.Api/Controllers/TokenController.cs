@@ -2,10 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SocialMedia.Domain.Entities;
+using SocialMedia.Domain.Interfaces;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SocialMedia.Api.Controllers
 {
@@ -14,33 +16,35 @@ namespace SocialMedia.Api.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly ISecurityService _securityService;
 
-        public TokenController(IConfiguration configuration)
+        public TokenController(IConfiguration configuration, ISecurityService securityService)
         {
             _configuration = configuration;
+            _securityService = securityService;
         }
 
         [HttpPost]
-        public IActionResult Authentication(UserLogin user)
+        public async Task<IActionResult> AuthenticationAsync(UserLogin user)
         {
-            // if is a valid user 
-            if (IsValidUser(user))
+            var validation = await IsValidUser(user);
+
+            if (validation.Item1)
             {
-                var token = GenerateToken();
+                var token = GenerateToken(validation.Item2);
                 return Ok(new { token });
             }
 
             return NotFound();
         }
 
-        private bool IsValidUser(UserLogin user)
+        private async Task<(bool, Security)> IsValidUser(UserLogin login)
         {
-            // Logic to query DB and check if the user exists
-
-            return true;
+            var user = await _securityService.GetLoginByCredentials(login);
+            return (user != null, user);
         }
 
-        private string GenerateToken()
+        private string GenerateToken(Security security)
         {
             //Header
             var symetricSecurtyKey =
@@ -51,9 +55,9 @@ namespace SocialMedia.Api.Controllers
             //Claims - caracteristicas do usuario gerado
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, "Name"),
-                new Claim(ClaimTypes.Email, "email@email.com"),
-                new Claim(ClaimTypes.Role, "Administrator")
+                new Claim(ClaimTypes.Name, security.UserName),
+                new Claim("User", security.User),
+                new Claim(ClaimTypes.Role, security.Role.ToString())
             };
 
             // Payload
@@ -61,7 +65,7 @@ namespace SocialMedia.Api.Controllers
             var iss = _configuration["Authentication:Issuer"];
             var aud = _configuration["Authentication:Audience"];
 
-            var payload = new JwtPayload(iss, aud, claims, DateTime.Now, DateTime.UtcNow.AddMinutes(2));
+            var payload = new JwtPayload(iss, aud, claims, DateTime.Now, DateTime.UtcNow.AddMinutes(10));
 
             // Generate token
             var token = new JwtSecurityToken(header, payload);

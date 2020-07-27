@@ -59,6 +59,7 @@ namespace SocialMedia.Api
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUnityOfWork, UnityOfWork>();
             services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ISecurityService, SecurityService>();
             services.AddSingleton<IUriService>(provider =>
             {
                 var accesor = provider.GetRequiredService<IHttpContextAccessor>();
