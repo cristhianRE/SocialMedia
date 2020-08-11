@@ -16,6 +16,7 @@ using SocialMedia.Domain.Services;
 using SocialMedia.Infrastructure.Data;
 using SocialMedia.Infrastructure.FIlters;
 using SocialMedia.Infrastructure.Interfaces;
+using SocialMedia.Infrastructure.Options;
 using SocialMedia.Infrastructure.Repositories;
 using SocialMedia.Infrastructure.Services;
 using System;
@@ -56,8 +57,10 @@ namespace SocialMedia.Api
                 doc.IncludeXmlComments(xmlPath);
             });
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
+            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUnityOfWork, UnityOfWork>();
+            services.AddSingleton<IPasswordService, PasswordService>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ISecurityService, SecurityService>();
             services.AddSingleton<IUriService>(provider =>
