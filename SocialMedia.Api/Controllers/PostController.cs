@@ -69,7 +69,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPost([FromRoute] int id)
+        public async Task<IActionResult> GetPost(int id)
         {
             var post = await _service.GetPost(id);
             var postDto = _mapper.Map<PostDto>(post);
@@ -78,7 +78,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PostDto postDto)
+        public async Task<IActionResult> Post(PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
             await _service.InsertPost(post);
@@ -88,7 +88,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] PostDto postDto)
+        public async Task<IActionResult> Put(int id, PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
             post.Id = id;
@@ -98,7 +98,7 @@ namespace SocialMedia.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var result = await _service.DeletePost(id);
             var response = new ApiResponse<bool>(result);

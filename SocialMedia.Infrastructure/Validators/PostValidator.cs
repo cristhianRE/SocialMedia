@@ -11,7 +11,11 @@ namespace SocialMedia.Infrastructure.Validators
             // Alternative to data annotations
             RuleFor(post => post.Description)
                 .NotNull()
-                .Length(0, 1100);
+                .WithMessage("Description can not be empty.");
+
+            RuleFor(post => post.Description)
+                .Length(0, 500)
+                .WithMessage("Length must be less than 500 characters.");
 
             RuleFor(post => post.Date)
                 .NotNull()
